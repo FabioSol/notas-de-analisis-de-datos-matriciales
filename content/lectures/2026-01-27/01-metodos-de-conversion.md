@@ -14,7 +14,7 @@ Estaremos trabajando con la siguiente imagen:
 
 ![Imagen de ejemplo](../img.png)
 
-### Extraccion de plano
+### Extracción de plano
 
 Vimos la clase pasada que el color que mas informacion tiene es el canal verde. por lo tanto podemos extraer un plano de color verde y trabajar con el.
 
@@ -40,7 +40,7 @@ gray_image = image.mean(axis=2).astype(np.uint8)
 
 ![Imagen promedio de canales](../img_average_channels.png)
 
-### Comparacion
+### Comparación
 
 <div style="display: flex; flex-direction: row; gap: 10px;">
 <p><img src="../img.png" alt="Imagen de ejemplo"></p>
@@ -49,7 +49,7 @@ gray_image = image.mean(axis=2).astype(np.uint8)
 </div>
 
 
-### Metodo Luma: ponderacion de canales
+### Método Luma: ponderación de canales
 
 El método Luma utiliza una ponderación específica para cada canal de color, reflejando la sensibilidad del ojo humano a diferentes colores. Las fórmulas comúnmente utilizada es:
 
@@ -61,7 +61,54 @@ El método Luma utiliza una ponderación específica para cada canal de color, r
 
 
 <div style="display: flex; flex-direction: row; gap: 10px;">
-<p><img src="../img_601.png" alt="Imagen de ejemplo"></p>
-<p><img src="../img_709.png" alt="Imagen plano verde"></p>
-<p><img src="../img_2020.png" alt="Imagen promedio de canales"></p>
+<p><img src="../img_601.png" alt="Imagen BT.601 "></p>
+<p><img src="../img_709.png" alt="Imagen BT.709"></p>
+<p><img src="../img_2020.png" alt="Imagen BT.2020"></p>
+</div>
+
+### Método de Desaturación
+
+El método de desaturación convierte una imagen a escala de grises tomando el promedio del valor máximo y mínimo de los canales de color para cada píxel.
+
+$$Gray = \frac{max(R, G, B) + min(R, G, B)}{2}$$
+
+```python
+gray_image = ((image.max(axis=2) + image.min(axis=2)) / 2).astype(np.uint8)
+```
+
+![Imagen desaturación](../img_desaturated.png)
+
+### Método de Descomposición
+
+El método de descomposición convierte una imagen a escala de grises utilizando únicamente el valor máximo o mínimo de los canales de color para cada píxel.
+- **Máximo**: Utiliza el valor máximo entre los canales rojo, verde y azul.
+- **Mínimo**: Utiliza el valor mínimo entre los canales rojo, verde y azul.
+
+```python
+# Descomposición por máximo
+max_image = image.max(axis=2).astype(np.uint8)
+# Descomposición por mínimo
+min_image = image.min(axis=2).astype(np.uint8)
+```
+
+Maximo y Mínimo:
+
+<div style="display: flex; flex-direction: row; gap: 10px;">
+<p><img src="../img_max.png" alt="Imagen de descomposicion max"></p>
+<p><img src="../img_min.png" alt="Imagen de descomposicion min"></p>
+</div>
+
+### Comparativa de métodos
+
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3,1fr); gap: 10px;">
+<div><img src="../img.png" alt="Imagen de ejemplo"><p>Normal</p></div>
+<div><img src="../img_green_channel.png" alt="Imagen plano verde"><p>Canal Verde</p></div>
+<div><img src="../img_average_channels.png" alt="Imagen promedio de canales"><p>Promedio de canales</p></div>
+<div><img src="../img_601.png" alt="Imagen BT.601"><p>BT.601</p></div>
+<div><img src="../img_709.png" alt="Imagen BT.709"><p>BT.709</p></div>
+<div><img src="../img_2020.png" alt="Imagen BT.2020"><p>BT.2020</p></div>
+<div><img src="../img_desaturated.png" alt="Imagen desaturada"><p>Desaturación</p></div>
+<div><img src="../img_max.png" alt="Imagen descomposición max"><p>Descomposición max</p></div>
+<div><img src="../img_min.png" alt="Imagen descomposición min"><p>Descomposición min</p></div>
+
 </div>
